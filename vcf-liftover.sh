@@ -111,7 +111,7 @@ if [ "$METHOD" =  "fast" ]; then
                                 ivr=$(echo $ival | sed 's/:.*//;s/.*-//')
 				ivl=$(( $ivl + 1 ))
 				offset=$(echo $ival | sed 's/.*://')
-				tabix $INFILE ${CHR}:${ivl}-$ivr | awk -v offset=$offset 'BEGIN{OFS="\t"}{$3=$2;$2=$2+offset}1'
+				tabix $INFILE ${CHR}:${ivl}-$ivr | awk -v offset=$offset 'BEGIN{OFS="\t"}{$3=$3;$2=$2+offset}1'
 			done | sort -k2,2n
 		else 
 			>&2 echo Interval $j nosort $a 
@@ -120,7 +120,7 @@ if [ "$METHOD" =  "fast" ]; then
                         ivr=$(echo $iv | sed 's/:.*//;s/.*-//')
                         ivl=$(( $ivl + 1 ))
 			offset=$(echo ${ivals[0]} | sed 's/.*://')
-			tabix $INFILE ${CHR}:${ivl}-${ivr}  | awk -v offset=$offset 'BEGIN{OFS="\t"}{$3=$2;$2=$2+offset}1' 
+			tabix $INFILE ${CHR}:${ivl}-${ivr}  | awk -v offset=$offset 'BEGIN{OFS="\t"}{$3=$3;$2=$2+offset}1' 
 		fi 
 	done 
 	} | bgzip > $OUTFILE
